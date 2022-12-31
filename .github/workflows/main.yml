@@ -22,6 +22,7 @@ jobs:
       with:
         repository: worc4021/hsl
         path: hsl
+        ref: master
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
