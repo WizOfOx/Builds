@@ -20,9 +20,8 @@ jobs:
     - name: Checkout HSL
       uses: actions/checkout@v2.6.0
       with:
-        repository: worc4021/hsl
+        repository: WizOfOx/hsl
         path: hsl
-        ref: master
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
