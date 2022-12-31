@@ -21,7 +21,7 @@ jobs:
     - name: Bump version
       env:
         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      workdir: ${{ env.GITHUB_WORKSPACE }}
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: |
           npm run release
           git remote rm origin
