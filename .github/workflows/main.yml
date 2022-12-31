@@ -23,12 +23,7 @@ jobs:
         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: |
-          npm run release
-          git remote rm origin
-          git remote add origin https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/WizOfOX/hsl.git
-          git remote -v # for debug only 
-          git show-ref # for debug only 
-          git push --follow-tags origin HEAD:master
+          git clone https://${{github.actor}}:${{secrets.GITHUB_TOKEN}}@github.com/WizOfOX/hsl.git
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
