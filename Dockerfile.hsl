@@ -1,9 +1,11 @@
 FROM debian:stable-slim as hsl-builder
 
+ARG basepath=.
+
+COPY ${basepath}/hsl /src
+
 RUN apt update && \
     apt install -y build-essential gfortran
-
-COPY ./hsl /src
 
 WORKDIR /src
 
