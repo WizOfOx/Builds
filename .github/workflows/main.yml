@@ -23,13 +23,6 @@ jobs:
         repository: WizOfOx/HSL
         path: hsl
         token: ${{secrets.OWN_TOKEN}}
-        
-#    - name: Bump version
-#      env:
-#        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-#      working-directory: ${{ env.GITHUB_WORKSPACE }}
-#      run: |
-#          git clone https://${{github.actor}}:${{secrets.OWN_TOKEN}}@github.com/WizOfOx/hsl.git
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
@@ -42,6 +35,7 @@ jobs:
     - name: Docker Build
       working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: |
+        ls -lA . && 
         docker build --tag hsl - < builds/Dockerfile.hsl
     - name: Build and push Docker images
       uses: docker/build-push-action@v3.2.0
