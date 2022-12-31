@@ -16,12 +16,12 @@ jobs:
       uses: actions/checkout@v2.6.0
       with:
         repository: WizOfOx/Builds
-        path: /builds
+        path: ${{ env.GITHUB_WORKSPACE }}/builds
     - name: Checkout HSL
       uses: actions/checkout@v2.6.0
       with:
         repository: worc4021/hsl
-        path: /hsl
+        path: ${{ env.GITHUB_WORKSPACE }}/hsl
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
@@ -34,7 +34,7 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v3.2.0
       with:
-        filename: /builds/Dockerfile.hsl
+        filename: ${{ env.GITHUB_WORKSPACE }}/builds/Dockerfile.hsl
         push: true
         tags: hsl
         
