@@ -2,6 +2,8 @@ FROM debian:stable-slim as hsl-builder
 
 ARG basepath=.
 
+RUN echo ${basepath}
+
 COPY ${basepath}/hsl /src
 
 RUN apt update && \
