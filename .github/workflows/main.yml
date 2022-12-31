@@ -17,13 +17,19 @@ jobs:
       with:
         repository: WizOfOx/Builds
         path: builds
+    - name: Checkout HSL
+      uses: actions/checkout@v2.6.0
+      with:
+        repository: WizOfOx/HSL
+        path: hsl
+        token: ${{secrets.OWN_TOKEN}}
         
-    - name: Bump version
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      working-directory: ${{ env.GITHUB_WORKSPACE }}
-      run: |
-          git clone https://${{github.actor}}:${{secrets.OWN_TOKEN}}@github.com/WizOfOx/hsl.git
+#    - name: Bump version
+#      env:
+#        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#      working-directory: ${{ env.GITHUB_WORKSPACE }}
+#      run: |
+#          git clone https://${{github.actor}}:${{secrets.OWN_TOKEN}}@github.com/WizOfOx/hsl.git
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
