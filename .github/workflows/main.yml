@@ -42,7 +42,7 @@ jobs:
     - name: Docker Build
       working-directory: ${{ env.GITHUB_WORKSPACE }}
       run: |
-        docker build --file builds/Dockerfile.hsl --tag hsl
+        docker build --tag hsl - < builds/Dockerfile.hsl
     - name: Build and push Docker images
       uses: docker/build-push-action@v3.2.0
       with:
