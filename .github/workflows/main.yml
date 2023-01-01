@@ -32,17 +32,17 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_HUB }}
-    # - name: Docker Build
-    #   working-directory: ${{ env.GITHUB_WORKSPACE }}
-    #   run: |
-    #     ls -lA . && 
-    #     DOCKER_BUILDKIT=1 
-    #     docker build --tag hsl - < builds/Dockerfile.hsl
-    - name: Build and push Docker images
-      uses: docker/build-push-action@v3.2.0
-      with:
-        filename: ${{ env.GITHUB_WORKSPACE }}/builds/Dockerfile.hsl
-        push: true
-        tags: hsl
-        builder: BuildKit
+    - name: Docker Build
+      working-directory: ${{ env.GITHUB_WORKSPACE }}
+      run: |
+        ls -lA . && 
+        DOCKER_BUILDKIT=1 
+        docker build --ssh default --tag hsl - < builds/Dockerfile.hsl
+    # - name: Build and push Docker images
+    #   uses: docker/build-push-action@v3.2.0
+    #   with:
+    #     filename: ${{ env.GITHUB_WORKSPACE }}/builds/Dockerfile.hsl
+    #     push: true
+    #     tags: hsl
+    #     builder: BuildKit
         
