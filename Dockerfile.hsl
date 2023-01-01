@@ -2,9 +2,8 @@
 FROM debian:stable-slim as hsl-builder
 
 ARG ACCESS_TOKEN
-ARG USER 
 
-ADD git@github.com:WizOfOx/hsl.git /src
+RUN  git clone ${ACCESS_TOKEN}@github.com/WizOfOx/hsl.git /src
 
 RUN apt update && \
     apt install -y build-essential gfortran
