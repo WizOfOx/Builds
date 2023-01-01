@@ -23,5 +23,6 @@ RUN /ipopt-src/configure --prefix=/build \
      --disable-java \
      --enable-static \
     && make -j$(nproc) \
+    && make test \
     && make install
 
