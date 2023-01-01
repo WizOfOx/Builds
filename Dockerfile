@@ -13,7 +13,7 @@ ADD https://github.com/coin-or/Ipopt.git /ipopt-src
 
 WORKDIR /ipopt-src
 
-RUN ./configure --prefix=/build \
+RUN /ipopt-src/configure --prefix=/build \
      --with-hsl-cflags="-I/build/include" \
      --with-hsl-lflags="-L/build/lib -lcoinhsl" \
      --with-lapack="-llapack" \
