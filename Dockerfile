@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile-upstream:master-labs
 FROM worc4021/hsl:latest as hsl-builder
 
 RUN apt update && apt install -y \
