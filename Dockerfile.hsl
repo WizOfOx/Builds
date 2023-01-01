@@ -1,7 +1,10 @@
 # syntax=docker/dockerfile-upstream:master-labs
 FROM debian:stable-slim as hsl-builder
 
-ADD https://github.com/WizOfOx/hsl.git /src
+ARG ACCESS_TOKEN
+ARG USER 
+
+ADD git@github.com:WizOfOx/hsl.git /src
 
 RUN apt update && \
     apt install -y build-essential gfortran
