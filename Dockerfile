@@ -9,7 +9,7 @@ RUN apt update && apt install -y \
     libtool \
     wget
 
-COPY . /ipopt-src
+ADD https://github.com/coin-or/Ipopt.git /ipopt-src
 
 WORKDIR /ipopt-src
 
