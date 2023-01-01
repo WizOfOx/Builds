@@ -24,6 +24,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
+        filename: Dockerfile.ipopt
         push: false
         tags: |
           ${{ secrets.DOCKER_USER }}/ipopt:latest
