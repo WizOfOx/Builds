@@ -19,7 +19,10 @@ ADD https://github.com/coin-or-tools/ThirdParty-Mumps.git#stable/3.0 /mumps-src
 WORKDIR /mumps-src
 
 RUN ./get.Mumps && \
+    OPENBLASFLAGS=$(pkg-config --libs --static openblas) \
     ./configure --prefix=/build \
+    --with-blas="$OPENBLASFLAGS" \
+    --with-lapack="$OPENBLASFLAGS" \
     --enable-mpi \
     --enable-64bit-int \
     --enable-parallel \
@@ -32,11 +35,14 @@ ADD https://github.com/coin-or/Ipopt.git#stable/3.14 /ipopt-src
 
 WORKDIR /ipopt-src
 
-RUN /ipopt-src/configure --prefix=/build \
-     --disable-linear-solver-loader \
-     --disable-sipopt \
-     --disable-java \
-     --enable-static \
+RUN OPENBLASFLAGS=$(pkg-config --libs --static openblas) \
+    ./configure --prefix=/build \
+    --disable-linear-solver-loader \
+    --disable-sipopt \
+    --disable-java \
+    --enable-static \
+    --with-blas="$OPENBLASFLAGS" \
+    --with-lapack="$OPENBLASFLAGS" \
     && make -j$(nproc) \
     && make test \
     && make install
