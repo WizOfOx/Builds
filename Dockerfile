@@ -8,16 +8,31 @@ RUN apt update && apt install -y \
     liblapack-dev \
     libopenblas-dev \
     libtool \
-    wget
+    wget \
+    metis \
+    pkg-config 
 
-ADD https://github.com/coin-or/Ipopt.git /ipopt-src
+ENV PKG_CONFIG_PATH=/build/lib/pkgconfig
+
+ADD https://github.com/coin-or-tools/ThirdParty-Mumps.git#stable/3.0 /mumps-src
+
+WORKDIR /mumps-src
+
+RUN ./get.Mumps && \
+    ./configure --prefix=/build \
+    --enable-mpi \
+    --enable-64bit-int \
+    --enable-parallel \
+    --enable-static \
+    && make -j$(nproc) \
+    && make test \
+    && make install
+
+ADD https://github.com/coin-or/Ipopt.git#stable/3.14 /ipopt-src
 
 WORKDIR /ipopt-src
 
 RUN /ipopt-src/configure --prefix=/build \
-     --with-hsl-cflags="-I/build/include" \
-     --with-hsl-lflags="-L/build/lib -lcoinhsl" \
-     --with-lapack="-llapack" \
      --disable-linear-solver-loader \
      --disable-sipopt \
      --disable-java \
