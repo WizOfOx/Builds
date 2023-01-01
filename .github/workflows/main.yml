@@ -1,4 +1,4 @@
-name: HSL-Build
+name: Ipopt-Build
 
 on:
   push:
@@ -12,17 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout Builds
-      uses: actions/checkout@v2.6.0
-      with:
-        repository: WizOfOx/Builds
-        path: builds
-    - name: Checkout HSL
-      uses: actions/checkout@v2.6.0
-      with:
-        repository: WizOfOx/HSL
-        path: hsl
-        token: ${{secrets.OWN_TOKEN}}
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
@@ -32,17 +21,11 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USER }}
         password: ${{ secrets.DOCKER_HUB }}
-    - name: Docker Build
-      working-directory: ${{ env.GITHUB_WORKSPACE }}
-      run: |
-        ls -lA . && 
-        DOCKER_BUILDKIT=1 
-        docker build --ssh default --build-arg ACCESS_TOKEN=${{ secrets.OWN_TOKEN }} --tag hsl - < builds/Dockerfile.hsl
-    # - name: Build and push Docker images
-    #   uses: docker/build-push-action@v3.2.0
-    #   with:
-    #     filename: ${{ env.GITHUB_WORKSPACE }}/builds/Dockerfile.hsl
-    #     push: true
-    #     tags: hsl
-    #     builder: BuildKit
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: false
+        tags: |
+          ${{ secrets.DOCKER_USER }}/ipopt:latest
+          ${{ secrets.DOCKER_USER }}/ipopt:${{ github.sha }}
         
